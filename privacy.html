@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src data:; base-uri 'none'; form-action 'none'"><link rel="icon" href="data:,"><link rel="stylesheet" href="style.css"><title>隐私说明 · Hermes Personal Mail Notify</title><meta name="description" content="Hermes Personal Mail Notify 的个人用途、数据处理和使用边界说明。"></head>
+<body><a class="skip" href="#main">跳至正文</a><header class="brand"><a href="index.html">Hermes Personal Mail Notify</a><small>个人邮箱摘要与私人提醒</small></header><div class="layout"><aside><p>应用文档</p><nav aria-label="页面导航"><a href="index.html">应用说明</a><a href="privacy.html" aria-current="page">隐私说明</a><a href="terms.html">使用条款</a></nav></aside><main id="main"><p class="eyebrow">数据访问、使用与保留 · 更新日期：2026-10-16</p><h1>隐私说明</h1><p class="intro">本说明针对 Hermes Personal Mail Notify 的当前个人部署。应用只把已授权邮箱中的数据用于邮件摘要和发给所有者的私人提醒。</p>
+<h2>访问哪些数据</h2>
+<ul><li>用于核对授权身份的邮箱账号信息，以及 Google 返回的基本身份信息。</li><li>新收件箱邮件的发件人、主题、日期、正文片段和消息标识；程序会限制交给模型的字段长度。</li><li>用于补查、去重和投递确认的历史游标、处理状态、消息回执及固定收件目标。</li></ul>
+<p>应用不会下载附件来分析，也不会请求 Gmail 发信或修改邮件的权限。Pub/Sub 权限用于本项目的邮箱变更通知资源，不用于访问其他 Google 产品的数据。</p>
+<h2>数据在哪里处理</h2>
+<div class="table-wrap"><table><thead><tr><th>位置</th><th>用途与数据</th></tr></thead><tbody>
+<tr><td>Google</td><td>提供 Gmail 读取、OAuth 授权和 Pub/Sub 通知。推送提示用于唤醒程序，邮件正文由只读 Gmail API 获取。</td></tr>
+<tr><td>所有者本机</td><td>运行接收程序，保管 Google 授权凭据和待处理队列，执行去重、格式检查及固定目标投递。</td></tr>
+<tr><td>OpenAI 模型服务</td><td>接收有界的邮件信息和正文片段，生成摘要与待办判断。Google 授权凭据和消息通道凭据不会作为邮件数据交给模型。</td></tr>
+<tr><td>消息通道</td><td>Hermes / Photon / iMessage 及相应服务处理投递所需的收件信息与摘要，送至所有者配置的私人目标。</td></tr>
+</tbody></table></div>
+<p>模型调用不配置工具，不加载所有者的聊天历史、技能或记忆。邮箱访问和实际投递由本地程序按固定配置完成。</p>
+<div class="note">模型推理需要网络传输。请求中的 <code>store=false</code> 不代表供应商零日志或零留存；外部服务的数据处理、保留和使用方式仍受其条款及账号设置约束。</div>
+<h2>本地保存与清理</h2>
+<p>待处理正文保存在受权限保护的本地队列中。发送接口确认接受后，程序从活动队列清除该条正文和摘要；这不是对磁盘安全擦除的承诺。</p>
+<p>消息标识、同步游标和投递回执会保留，用来防止重复处理。发送结果不确定时会保留记录，等待人工核对，而不是盲目重发。备份可能包含较早的队列内容，由所有者负责保管和清理；停止服务或撤销授权不会自动删除这些备份。</p>
+<h2>用途与共享边界</h2>
+<p>本项目不会出售邮件数据，不会用其投放广告，也不自行将其用于训练通用模型。数据只交给完成授权读取、用户请求的摘要及私人投递所必需的服务。所有者应核对所选外部服务的条款与数据控制设置，确保其符合这一用途。</p>
+<p>Google 用户数据的处理须遵守 <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>，包括适用的 Limited Use 要求。本说明不代表 Google 已验证或批准此应用。</p>
+<h2>停止、撤销授权与联系</h2>
+<p>所有者可以停止本地提醒进程，并在 <a href="https://myaccount.google.com/connections">Google 账号的第三方连接页面</a>撤销授权。若希望清除已保存内容，还需按本地维护流程处理队列、回执及备份；外部服务上的数据请求应按该提供商的流程提出。</p>
+<p>维护和数据处理问题请通过 Google 授权页面列出的用户支持邮箱联系维护者。本页面不公开个人邮箱或私人消息地址。</p>
+<h2>说明网站本身</h2>
+<p>这些静态页面没有登录表单、广告或统计脚本，也不主动设置跟踪 Cookie。免费托管服务商仍可能记录网页访问请求，相关处理适用其隐私说明。本站采用 GitHub Pages 静态托管；网页访问也适用 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub 隐私声明</a>。</p><footer><p>Hermes Personal Mail Notify · 个人项目说明</p><p><a href="index.html">应用说明</a><a href="privacy.html">隐私说明</a><a href="terms.html">使用条款</a></p><p>本页面仅提供应用说明；Google 授权由用户在官方页面管理。</p></footer></main></div></body></html>
